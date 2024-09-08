@@ -7,7 +7,7 @@ exports.linkVerification = async (req, res, next) => {
   const existingLinkObj = await Link.findOne({ partnerLink: `${fullLink}` });
 
   const today = new Date();
-  const timeOfCreation = `${today.getDay()}.${today.getMonth() + 1}.${today.getFullYear()}`;
+  const timeOfCreation = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
 
   if (existingLinkObj) {
     await Link.findByIdAndUpdate(
@@ -48,7 +48,7 @@ exports.createLink = async (req, res) => {
 
     const fullLink = `${formattedLink}/?offer=${offer}&platform=${ground}&name=${name}`;
     const today = new Date();
-    const timeOfCreation = `${today.getDay()}.${today.getMonth() + 1}.${today.getFullYear()}`;
+    const timeOfCreation = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
 
     const newLink = await Link.create({
       partnerLink: fullLink,
