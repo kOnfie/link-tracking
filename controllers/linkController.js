@@ -1,32 +1,29 @@
 const Link = require('../models/linkModel');
 
-exports.linkVerification = async (req, res, next) => {
-  const queryParams = new URLSearchParams(req.query).toString();
-  const fullLink = `https://${req.params.link}` + '/?' + queryParams;
+// exports.linkVerification = async (req, res, next) => {
+//   console.log('link validation started');
+//   const queryParams = new URLSearchParams(req.query).toString();
+//   const fullLink = `https://${req.params.link}` + '/?' + queryParams;
 
-  const existingLinkObj = await Link.findOne({ partnerLink: `${fullLink}` });
+//   const existingLinkObj = await Link.findOne({ partnerLink: `${fullLink}` });
 
-  const today = new Date();
-  const timeOfCreation = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
+//   const today = new Date();
+//   const timeOfCreation = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
 
-  if (existingLinkObj) {
-    await Link.findByIdAndUpdate(
-      existingLinkObj._id,
-      {
-        $push: { users: timeOfCreation },
-      },
-      {
-        new: true,
-      }
-    );
-  }
+//   if (existingLinkObj) {
+//     await Link.findByIdAndUpdate(
+//       existingLinkObj._id,
+//       {
+//         $push: { users: timeOfCreation },
+//       },
+//       {
+//         new: true,
+//       }
+//     );
+//   }
 
-  next();
-};
-
-exports.getLink = (req, res) => {
-  res.redirect(`https://${req.params.link}`);
-};
+//   next();
+// };
 
 exports.getLinks = async (req, res) => {
   try {
